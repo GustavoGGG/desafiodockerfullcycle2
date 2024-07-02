@@ -21,5 +21,5 @@ Siga as instruções abaixo para configurar e executar o projeto localmente:
 
 - Clone este repositório em sua máquina local:
 - Navegue até o diretório do projeto:\
-- Execute o comando docker-compose up -d para iniciar os contêineres Docker.
+- Execute o comando ```docker-compose up -d``` para iniciar os contêineres Docker.
 - Acesse a aplicação em seu navegador em http://localhost:8080.
