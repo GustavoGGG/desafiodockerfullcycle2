@@ -14,3 +14,12 @@ Não esqueça de colocar o volume na aplicação para o ambiente de desenvolvime
 Suba tudo em um repositório e faça a entrega.
 
 * A linguagem de programação para este desafio é Node/JavaScript.
+
+## Resultado do desafio
+
+Siga as instruções abaixo para configurar e executar o projeto localmente:
+
+- Clone este repositório em sua máquina local:
+- Navegue até o diretório do projeto:\
+- Execute o comando docker-compose up -d para iniciar os contêineres Docker.
+- Acesse a aplicação em seu navegador em http://localhost:8080.
