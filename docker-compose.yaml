@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+
+  app_node:
+    build:
+      context: ./node
+      dockerfile: Dockerfile
+    container_name: app_node
+    entrypoint: dockerize -wait tcp://mysql:3306 -timeout 20s sh -c "npm install && node index.js"
+    networks:
+      - desafio
+    volumes:
+      - ./node:/usr/src/app
+    tty: true
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mysql
+
+  nginx_node:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx_node
+    networks:
+      - desafio
+    ports:
+      - '8080:80'
+    depends_on:
+      - app_node
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    #Comando necessario para o MySQL
+    command: --innodb-use-native-aio=0
+    container_name: mysql
+    #Caso ocorrer algum problema restart
+    restart: always
+    #Ativa modo de interacao com o container
+    tty: true
+    volumes:
+      - ./config_base/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./banco:/var/lib/mysql
+    #Setar variaveis de ambiente
+    environment:
+      - MYSQL_DATABASE=basenode
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ROOT_HOST=%
+    networks:
+      - desafio
+    ports:
+      - '3306:3306'
+
+#Criando a rede
+networks:
+  desafio:
+    driver: bridge
+    name: desafio
